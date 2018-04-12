@@ -15,7 +15,7 @@ node* createNode(int data){
 	newN->left=newN->right=NULL;
 	return newN;
 }
-void preorderR(node* root){
+void preorderR(node* root){      //Recursive Preorder Traversal
 	if(root==NULL)
 		return ;
 	printf("%d ",root->data);
@@ -23,7 +23,7 @@ void preorderR(node* root){
 	preorderR(root->right);
 	return;
 }
-void preorderI(node *root){
+void preorderI(node *root){               //Iterative Preorder Traversal
 	stack<node*> s;
 	s.push(NULL);
 	if(root==NULL)
@@ -54,7 +54,7 @@ void preorderI(node *root){
 		}
 	}
 }
-void preorder(node *root){
+void preorder(node *root){            //Morris Preorder Traversal ( traversal without recursion and stack)
 	if(!root)
 		return;
 	node *current=root;
@@ -80,7 +80,7 @@ void preorder(node *root){
 		}
 	}
 }
-void inorderR(node* root){
+void inorderR(node* root){      //Recursive inorder Traversal
 	if(root==NULL)
 		return;
 	inorderR(root->left);
@@ -88,7 +88,7 @@ void inorderR(node* root){
 	inorderR(root->right);
 }
 
-void inorderI(node* root){
+void inorderI(node* root){        //Iterative Inorder Traversal
 	stack<node*> stk;
 	while(1){
 		while(root){
@@ -104,7 +104,7 @@ void inorderI(node* root){
 	}
 	return;
 }
-void inorder(node *root){
+void inorder(node *root){             //Morris Inorder Traversal
 	if(!root)
 		return;
 	node *current=root;
@@ -133,14 +133,13 @@ void inorder(node *root){
 		
 	}
 }
-void postorderR(node* root){
+void postorderR(node* root){             //Recursive Postorder Traversal
 	if(root==NULL)
 		return;
 	postorderR(root->left);
 	postorderR(root->right);
-	printf("%d ",root->data);
-}
-void postorderI(node* root){
+	cout<<(root->data);
+void postorderI(node* root){            //Iterative Postorder Traversal
 	static node* prev=NULL;
 	stack<node*> stk;
 	stk.push(NULL);
@@ -170,7 +169,7 @@ void postorderI(node* root){
 }
 
 
-int levelOrder(node *root){
+int levelOrder(node *root){                   //Level order Traversal(BFS Traversal)
 	if(root==NULL)
 		return INT_MIN;
 	queue<node*> q;
@@ -190,19 +189,19 @@ int levelOrder(node *root){
 	return maximum;
 }
 
-int maximum(node *root){
+int maximum(node *root){           //maximum of a Binary tree
 	if(root==NULL)
 		return INT_MIN;
 	return max(root->data,max(maximum(root->left),maximum(root->right)));
 }
 
-int size(node* root){
+int size(node* root){              //size of a Binary tree
 	if(!root)
 		return 0;
 	return 1+size(root->left)+size(root->right);
 }
 
-void levelOrderReversed(node *root){
+void levelOrderReversed(node *root){        //BFS traversal in Reversed order
 	if(root==NULL)
 		return;
 	vector<int> v;
@@ -221,7 +220,7 @@ void levelOrderReversed(node *root){
 		printf("%d ",*it);
 }
 
-void insertEl(int data,node** root){
+void insertEl(int data,node** root){          //Insertion in a Binary Tree
 	node *newN=createNode(data);
 	if(!*root){
 		*root= newN;
@@ -247,13 +246,13 @@ void insertEl(int data,node** root){
 	}
 	return;
 }
-int heightR(node *root){
+int heightR(node *root){          //Recursive function for height of a binary tree
 	if(!root)
 		return 0;
 	return 1+max(heightR(root->left),heightR(root->right));
 }
 
-int heightI(node *root){
+int heightI(node *root){          //Iterative function for height of a binary tree
 	if(root==NULL)
 		return 0;
 	
@@ -270,7 +269,7 @@ int heightI(node *root){
 	}
 	return p.second;
 }
-node* deleteTree(node *root){
+node* deleteTree(node *root){          //Delete a binary tree
 	if(root==NULL)
 		return NULL;
 	deleteTree(root->left);
@@ -278,7 +277,7 @@ node* deleteTree(node *root){
 	delete(root);
 	return NULL;
 }
-node* deepestNodeI(node *root){
+node* deepestNodeI(node *root){        //Iterative function for Deepest node in a binary tree
 	if(root==NULL){
 		printf("\nEmpty Tree");
 		return NULL;
@@ -297,7 +296,7 @@ node* deepestNodeI(node *root){
 	}
 	return temp;
 }
-void deepestR(node *root,int h,int *max,node** deep){
+void deepestR(node *root,int h,int *max,node** deep){     //utility function for below written function...
 	if(root==NULL)
 		return;
 	if(h>*max){
@@ -310,7 +309,7 @@ void deepestR(node *root,int h,int *max,node** deep){
 		deepestR(root->right,h+1,max,deep);
 	
 }
-node* deepestNodeR(node *root){
+node* deepestNodeR(node *root){    //Recursive function for deepest node in a binary tree
 	if(root==NULL)
 		return NULL;
 	int max=1;
@@ -318,7 +317,7 @@ node* deepestNodeR(node *root){
 	deepestR(root,1,&max,&deep);
 	return deep;
 }
-bool compareTwoTrees(node* root1,node* root2){
+bool compareTwoTrees(node* root1,node* root2){       //this function compares whether two binary trees are identical
 	if((!root1)&&(!root2)){
 		return true;
 	}
@@ -328,7 +327,7 @@ bool compareTwoTrees(node* root1,node* root2){
 		return false;
 	return compareTwoTrees(root1->left,root2->left)&&compareTwoTrees(root1->right,root2->right);
 }
-int treeDiameter(node* root,int *maxx){
+int treeDiameter(node* root,int *maxx){     //calculates diameter of a binary tree...
 	if(!root)
 		return 0;
 	
@@ -342,7 +341,7 @@ int treeDiameter(node* root,int *maxx){
 		*maxx=x+y;
 	return (x>y)?x:y;
 }
-int maximumSumLevel(node *root){
+int maximumSumLevel(node *root){             //this function returns level having maximum sum
 	if(root==NULL)
 		return -1;
 	queue<node*> q;
@@ -372,8 +371,8 @@ int maximumSumLevel(node *root){
 	}
 	return l;
 }
-//printing root to leaf paths for all nodes...
-void printingRootToLeaf(node *root,vector<int> &v){
+
+void printingRootToLeaf(node *root,vector<int> &v){          //printing root to leaf paths for all nodes...
 	if(root==NULL){
 		return;
 	}
@@ -395,14 +394,14 @@ void printRootToLeaf(node *root){
 	printingRootToLeaf(root,v);
 }
 
-bool givenSumPathExistence(node* root,int sum){
+bool givenSumPathExistence(node* root,int sum){       //this function checks whether path with given sum exists...
 	if(root==NULL)
 		return false;
 	if(!(sum-root->data))
 		return true;
 	return givenSumPathExistence(root->left,sum-root->data)||givenSumPathExistence(root->right,sum-root->data);
 }
-void interchangeToMirror(node *root){
+void interchangeToMirror(node *root){                 //this function interchanges a tree to its mirror
 	if(!root)
 		return;
 	node* temp=root->left;
@@ -414,7 +413,7 @@ void interchangeToMirror(node *root){
 		interchangeToMirror(root->right);
 }
 
-bool checkMirror(node* root1,node* root2){
+bool checkMirror(node* root1,node* root2){           //this function checks whether two trees are mirror of each other or not
 	if(!root1&&!root2)
 		return true;
 	if(!root1||!root2)
@@ -422,7 +421,7 @@ bool checkMirror(node* root1,node* root2){
 	return root1->data==root2->data&&(checkMirror(root1->left,root2->right)&&checkMirror(root1->right,root2->left));
 }
 
-node* lca(node*root,node *n1,node *n2){
+node* lca(node*root,node *n1,node *n2){            //this function computes lca of two nodes in a tree...
 	if(root==NULL)
 		return root;
 	if(root==n1||root==n2)
@@ -433,7 +432,7 @@ node* lca(node*root,node *n1,node *n2){
 		return root;
 	return (l)?l:r;
 }
-void zigzag(node *root){
+void zigzag(node *root){                    //this function prints zigzag traversal of a binary tree...
 	if(!root)
 		return;
 	queue<node*> q;
@@ -467,7 +466,7 @@ void zigzag(node *root){
 		}
 	}
 }
-int main(){
+int main(){                          //Driver function for checking utility functions...
 	node *root=NULL,*root1=NULL;
 	printf("enter the number of nodes in tree:");
 	int n;
