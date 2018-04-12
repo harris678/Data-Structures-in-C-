@@ -2,33 +2,33 @@
 
 #include<bits/stdc++.h>
 using namespace std;
-struct node{
+struct node{               //node structure for bst node
 	int data;
 	node *left,*right;
 };
-struct llnode{
+struct llnode{         //node structure for linked list...
 	int data;
 	llnode *next;
 };
-node* createNode(int data){
+node* createNode(int data){      //function to create a new bst node
 	node* newN=new node();
 	newN->data=data;
 	newN->left=NULL;
 	newN->right=NULL;
 	return newN;
 }
-llnode* createllNode(int data){
+llnode* createllNode(int data){         //function to create a new linked list node
 	llnode* newN=new llnode();
 	newN->data=data;
 	newN->next=NULL;
 	return newN;
 }
-llnode* insertLL(llnode* head,int data){
+llnode* insertLL(llnode* head,int data){     //function to insert in a linked list
 	llnode* newN=createllNode(data);
 	newN->next=head;
 	return newN;
 }
-bool find(node *root,int data,node *prev,node **par){
+bool find(node *root,int data,node *prev,node **par){      //function to find in bst
 	if(!root){
 		*par=prev;
 		return false;
@@ -47,7 +47,7 @@ bool find(node *root,int data,node *prev,node **par){
 	return false;
 }
 
-node* insert(node *root,int data){
+node* insert(node *root,int data){                 //function to insert in a bst
 	if(!root){
 		root=createNode(data);
 		return root;
@@ -68,7 +68,7 @@ node* insert(node *root,int data){
 	return root;
 }
 
-node* insertR(node *root,int data){
+node* insertR(node *root,int data){          //recursive function to insert in a bst
 	node *par=NULL;
 	if(!root){
 		root=createNode(data);
@@ -86,21 +86,21 @@ node* insertR(node *root,int data){
 	return root;
 }
 
-void preorder(node *root){
+void preorder(node *root){          //preorder traversal
 	if(!root)
 		return;
 	printf("%d ",root->data);
 	preorder(root->left);
 	preorder(root->right);
 }
-void inorder(node *root){
+void inorder(node *root){             // recursive inorder traversal
 	if(!root)
 		return;
 	inorder(root->left);
 	printf("%d ",root->data);
 	inorder(root->right);
 }
-void postorder(node *root){
+void postorder(node *root){        //recursive postorder traversal
 	if(!root)
 		return;
 	postorder(root->left);
@@ -108,7 +108,7 @@ void postorder(node *root){
 	printf("%d ",root->data);
 }
 
-int extractMin(node *root){
+int extractMin(node *root){          //returns minimum in bst
 	if(!root)
 		return INT_MAX;
 	node *ptr=root;
@@ -118,7 +118,7 @@ int extractMin(node *root){
 	return ptr->data;
 }
 
-int extractMax(node *root){
+int extractMax(node *root){            //this function returns maximum in bst  
 	if(!root)
 		return INT_MIN;
 	node *ptr=root;
@@ -128,7 +128,7 @@ int extractMax(node *root){
 	return ptr->data;
 }
 
-node* lcar(node *root,node *alpha,node *beta){
+node* lcar(node *root,node *alpha,node *beta){        //recursive function for lca of two nodes
 	if(((alpha->data>root->data)&&(beta->data<root->data))||((alpha->data<root->data)&&(beta->data>root->data)))
 		return root;
 	else if(alpha->data<root->data){
@@ -138,7 +138,7 @@ node* lcar(node *root,node *alpha,node *beta){
 		lcar(root->right,alpha,beta);
 	return NULL;
 }
-node* lcai(node *root,node *alpha,node *beta){
+node* lcai(node *root,node *alpha,node *beta){            //iterative function for lca of two nodes
 	if(!root){
 		return NULL;	
 	}
@@ -153,7 +153,7 @@ node* lcai(node *root,node *alpha,node *beta){
 	}
 	return ptr;
 }
-node* deleteNode(node *root,int data){
+node* deleteNode(node *root,int data){                  //deleting a bst node 
 	if(!root){
 		printf("\n<<<TREE EMPTY>>>\n");
 		return root;
@@ -215,7 +215,7 @@ node* deleteNode(node *root,int data){
 	return root;
 }
 
-bool isBST(node *root){
+bool isBST(node *root){           //function to check whether a binary tree is bst or not
 	if(!root)
 		return true;
 	if(root->left&&root->left->data>=root->data)
@@ -234,7 +234,7 @@ bool isBST2(node *root,int *prev){   //provided that tree cannot
 	bool z=isBST2(root->right,prev);
 	return x&&y&&z;
 }
-node* bst2dll(node *root,node **t){
+node* bst2dll(node *root,node **t){       //function to convert bst to doubly linked list
 	if(root==NULL){
 		*t=NULL;
 		return NULL;
@@ -259,7 +259,7 @@ node* bst2dll(node *root,node **t){
 		return lh;
 	}
 }
-node* bst2circulardll(node *root){
+node* bst2circulardll(node *root){            //function to convert bst to circular doubly linked list
 	if(!root)
 		return NULL;
 	node *tail=NULL;
@@ -268,7 +268,7 @@ node* bst2circulardll(node *root){
 	tail->right=head;
 	return head;
 }
-node* getMedium(node *head){
+node* getMedium(node *head){             //function returning medium of the linked list
 	node* ptr=head,*med=head;
 	head->left->right=NULL;
 	while(ptr&&ptr->right){
@@ -280,7 +280,7 @@ node* getMedium(node *head){
 	head->left->right=head;
 	return med;
 }
-node* cdll2bst(node *head){
+node* cdll2bst(node *head){             //function to convert circular doubly linked list to bst
 	if(head->left==head){
 		head->left=NULL;
 		head->right=NULL;
@@ -300,7 +300,7 @@ node* cdll2bst(node *head){
 	med->right=cdll2bst(med->right);
 	return med;
 }
-void traversecdll(node *head){
+void traversecdll(node *head){                //traversing a circular doubly linked list
 	if(!head)
 		return;
 	head->left->right=NULL;
@@ -311,7 +311,7 @@ void traversecdll(node *head){
 	}
 	head->left->right=head;
 }
-node* deleteTree(node *root){
+node* deleteTree(node *root){            //deleting a bst
 	if(!root)
 		return NULL;
 	deleteTree(root->left);
@@ -319,7 +319,7 @@ node* deleteTree(node *root){
 	free(root);
 	return NULL;
 }
-node* deletecdll(node *head){
+node* deletecdll(node *head){            //deleting a circular doubly linked list
 	if(!head)
 		return NULL;
 	head->left->right=NULL;
@@ -331,7 +331,7 @@ node* deletecdll(node *head){
 	}
 	return NULL;
 }
-node* sa2bst(int arr[],int si,int ei){
+node* sa2bst(int arr[],int si,int ei){              //function to convert a sorted array to binary search tree
 	if(si>ei)
 		return NULL;
 	if(si==ei){
@@ -347,7 +347,6 @@ node* con2bst(llnode** hd,int si,int ei){
 	llnode *ptr=*hd;
 	if(!(ptr))
 		return NULL;
-	//printf("data = %d ",ptr->data);
 	if(si>ei)
 		return NULL;
 	node* root=NULL;
@@ -364,19 +363,16 @@ node* con2bst(llnode** hd,int si,int ei){
 	root->right=con2bst(hd,mid+1,ei);
 	return root;
 }
-node* sll2bst(llnode** hd){
+node* sll2bst(llnode** hd){                          //function to convert sorted linked list to bst
 	llnode *ptr=*hd;
 	int size=0;
 	while(ptr){
 		size++;
 		ptr=ptr->next;
 	}
-	//printf("hd=%d,size=%d ",(*hd)->data,size);
-	//return NULL;
-	//ptr=*hd;
 	return con2bst(hd,0,size-1);
 }
-int main(){
+int main(){                                 //driver function to demonstrate all utility functions...
 	node *root=NULL;
 	root=insert(root,6);
 	root=insert(root,2);
@@ -386,7 +382,6 @@ int main(){
 	root=insert(root,4);
 	root=insert(root,5);
 	root=insertR(root,7);
-	//root->right->right=createNode(2);
 	preorder(root);
 	printf("\n");
 	postorder(root);
